@@ -1,0 +1,93 @@
+<div *ngIf="isAdministrator">
+    <li>
+        <a routerLink="/dashboard" routerLinkActive="active">
+            <i class="fa fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li>
+        <a routerLink="/users" routerLinkActive="active">
+            <i class="fa fa-shopping-cart"></i>
+            <span>User Management</span>
+        </a>
+    </li>
+    <li>
+        <a routerLink="/companies" routerLinkActive="active">
+            <i class="far fa-gem"></i>
+            <span>Companies</span>
+        </a>
+    </li>
+    <li>
+        <a routerLink="/permissions" routerLinkActive="active">
+            <i class="far fa-folder"></i>
+            <span>Permissions</span>
+        </a>
+    </li>
+</div>
+
+<div *ngIf="isModerator">
+    <li>
+        <a routerLink="/dashboard" routerLinkActive="active">
+            <i class="fa fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li>
+        <a routerLink="/company" routerLinkActive="active">
+            <i class="far fa-gem"></i>
+            <span>Company Management</span>
+        </a>
+    </li>
+    <li>
+        <a routerLink="/requests" routerLinkActive="active">
+            <i class="far fa-folder"></i>
+            <span>Absence Requests</span>
+        </a>
+    </li>
+    <li>
+        <a routerLink="/permissions" routerLinkActive="active">
+            <i class="far fa-folder"></i>
+            <span>Permissions</span>
+        </a>
+    </li>
+</div>
+
+<div *ngIf="isUser">
+    <li>
+        <a routerLink="/dashboard" routerLinkActive="active">
+            <i class="fa fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li>
+        <a routerLink="/profile" routerLinkActive="active">
+            <i class="fa fa-shopping-cart"></i>
+            <span>Profile</span>
+        </a>
+    </li>
+    <li>
+        <a routerLink="/presence" routerLinkActive="active">
+            <i class="far fa-gem"></i>
+            <span>Check in/out</span>
+        </a>
+    </li>
+    <li>
+        <a routerLink="/payroll" routerLinkActive="active">
+            <i class="far fa-folder"></i>
+            <span>Payroll Management</span>
+        </a>
+    </li>
+    <li>
+        <a routerLink="/absence" routerLinkActive="active">
+            <i class="far fa-folder"></i>
+            <span>Absence Request</span>
+        </a>
+    </li>
+    <li>
+        <a routerLink="/document" routerLinkActive="active">
+            <i class="far fa-folder"></i>
+            <span>Documents</span>
+        </a>
+    </li>
+</div>
+

@@ -1,0 +1,170 @@
+<div class="page-wrapper chiller-theme toggled">
+    <div id="show-sidebar" class="btn btn-sm btn-dark">
+        <i class="fas fa-bars"></i>
+    </div>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <h2 class="dashboard-title">Dashboard</h2>
+                <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="sidebar-header">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded"
+                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        alt="User picture">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">Rick
+                        <strong>Spanjers</strong>
+                    </span>
+                    <span class="user-role">{{role}}</span>
+                    <span class="user-status">
+                        <i class="fa fa-circle"></i>
+                        <span>Online</span>
+                    </span>
+                </div>
+            </div>
+            <!-- sidebar-header  -->
+            <div class="sidebar-search">
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control search-menu" placeholder="Search...">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- sidebar-search  -->
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+                    <app-navigation></app-navigation>
+                </ul>
+            </div>
+            <!-- sidebar-menu  -->
+        </div>
+        <!-- sidebar-content  -->
+        <div class="sidebar-footer">
+            <div>
+                <i class="fa fa-bell"></i>
+                <span class="badge badge-pill badge-warning notification">1</span>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <span class="badge badge-pill badge-success notification"></span>
+            </div>
+            <div>
+                <i class="fa fa-cog"></i>
+                <span class="badge-sonar"></span>
+            </div>
+            <div>
+                <app-logout></app-logout>
+            </div>
+        </div>
+    </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>User Management</h2>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="resultMsg" class="resultMsg">
+                        {{resultMsg}}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="title">
+                        Users in system
+                    </h2>
+                </div>
+                <div class="col-md-6">
+                    <button class="addAccountBtn" routerLink="/add-account" routerLinkActive="active">Add new account</button>
+                </div>
+            </div>
+            <div class="userList">
+                <div *ngIf="!usersInSystem">
+                    <p>There are no employees in your company!</p>
+                </div>
+                <div *ngIf="usersInSystem">
+                    <div class="singleUser" *ngFor="let user of userList">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p>{{user.firstname}} </p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>{{user.lastname}}</p>
+                            </div>
+                            <div class="col-md-2">                            
+                                <div class="form-group">
+                                    <select name="roleUpdate" (change)="updateAccountRole(user.id, $event.target.value)" [(ngModel)]="user.role.name">
+                                       <option *ngFor="let systemRole of roleList" [value]="systemRole">
+                                         {{systemRole}}
+                                       </option>
+                                    </select>
+                               </div>
+                            </div>
+                            <div class="col-md-4">
+                                <form class="quickForm" (ngSubmit)="updateUser(user.id)" #f="ngForm" novalidate>
+                                    <button class="submit-btn btnSend" type="submit">Update</button>
+                                </form>
+                                <form class="quickForm" (ngSubmit)="archiveOrUnarchiveUser(user.id, 'ARCHIVE')" #f="ngForm" novalidate>
+                                    <button class="submit-btn btnSend" type="submit">Archive</button>
+                                </form>
+                                <form class="quickForm" (ngSubmit)="deleteUser(user.id)" #f="ngForm" novalidate>
+                                    <button class="submit-btn btnSend" type="submit">Remove</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>       
+            </div>
+            <h2 class="title">Archived</h2>
+            <div *ngIf="!archivedUsers">
+                <p (click)="retrieveArchivedUsers()">Press here if you want to retrieve the archived users</p>
+            </div>
+            <div *ngIf="archivedUsers">
+                <div class="userList">
+                    <div class="singleUser" *ngFor="let archivedUser of archivedUserList">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p>{{archivedUser.firstname}} </p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>{{archivedUser.lastname}}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <form class="" (ngSubmit)="updateUser(archivedUser.id)" #f="ngForm" novalidate>
+                                    <button class="submit-btn btnSend" type="submit">Update</button>
+                                </form>
+                            </div>
+                            <div class="col-md-2">
+                                <form class="" (ngSubmit)="archiveOrUnarchiveUser(archivedUser.id, 'UNARCHIVE')" #f="ngForm" novalidate>
+                                    <button class="submit-btn btnSend" type="submit">Unarchive</button>
+                                </form>
+                            </div>
+                            <div class="col-md-2">
+                                <form class="" (ngSubmit)="deleteUser(archivedUser.id)" #f="ngForm" novalidate>
+                                    <button class="submit-btn btnSend" type="submit">Remove</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>

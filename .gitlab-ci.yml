@@ -1,0 +1,44 @@
+stages:
+    - build
+    - test
+    - publish
+    - deploy
+
+build:
+    stage: build
+    script:
+        - echo "Building"
+
+test:
+    stage: test
+    script:
+        - echo "Testing"
+
+publish:
+    stage: publish
+    only:
+        - master
+    script:
+        - echo "Publishing docker image"
+        - docker build --rm -t hr-application-frontend:latest -f ./Dockerfile.txt .
+        - docker tag hr-application-frontend:latest $docker_username/hr-management:hr-application-frontend
+        - echo "$docker_password" | docker login --username $docker_username --password-stdin
+        - docker push $docker_username/hr-management:hr-application-frontend
+
+deploy:
+    stage: deploy
+    only:
+        - master
+    script:
+        # Set image name as a variable
+        - set IMAGE_NAME=$docker_username/hr-management:frontend
+        # download & install latest kubectl release
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod +x ./kubectl
+        - mv ./kubectl /usr/local/bin/kubectl
+        # Deploy to kubernetes
+        - kubectl set image deployment/hr-frontend hr-frontend=$docker_username/hr-management:hr-application-frontend --kubeconfig=$KUBECONFIG
+
+       
+after_script:
+    - echo "End CI/CD"

@@ -1,0 +1,153 @@
+<div class="page-wrapper chiller-theme toggled">
+    <div id="show-sidebar" class="btn btn-sm btn-dark">
+        <i class="fas fa-bars"></i>
+    </div>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <h2 class="dashboard-title">Dashboard</h2>
+                <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="sidebar-header">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded"
+                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        alt="User picture">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">Rick
+                        <strong>Spanjers</strong>
+                    </span>
+                    <span class="user-role">{{role}}</span>
+                    <span class="user-status">
+                        <i class="fa fa-circle"></i>
+                        <span>Online</span>
+                    </span>
+                </div>
+            </div>
+            <!-- sidebar-header  -->
+            <div class="sidebar-search">
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control search-menu" placeholder="Search...">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- sidebar-search  -->
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+                    <app-navigation></app-navigation>
+                </ul>
+            </div>
+            <!-- sidebar-menu  -->
+        </div>
+        <!-- sidebar-content  -->
+        <div class="sidebar-footer">
+            <div>
+                <i class="fa fa-bell"></i>
+                <span class="badge badge-pill badge-warning notification">1</span>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <span class="badge badge-pill badge-success notification"></span>
+            </div>
+            <div>
+                <i class="fa fa-cog"></i>
+                <span class="badge-sonar"></span>
+            </div>
+            <div>
+                <app-logout></app-logout>
+            </div>
+        </div>
+    </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="title">Presence monitoring</h1>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="resultMsg" class="resultMsg">
+                        {{resultMsg}}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <form class="" (ngSubmit)="attendanceRequest()" #f="ngForm" novalidate>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="title">Check-in / out</h2>
+                        <div class="form-group">
+                            <input id="fullname" class="form-control" type="text" name="fullname"
+                                [(ngModel)]="formContent.fullname" ngDefaultControl #fullname="ngModel"
+                                placeholder="Rick Spanjers" required>
+                        </div>
+                        <div class="form-group">
+                            <input id="company" class="form-control" type="text" name="company"
+                                [(ngModel)]="formContent.company" ngDefaultControl #company="ngModel"
+                                placeholder="Fontys Hogeschool ICT" required>
+                        </div>
+                        <button class="submit-btn btnSend" type="submit" title="Versturen">{{presence}}</button>
+                    </div>
+                    <div class="col-md-6">
+                        <h2 class="title">Current time</h2>
+                        <p class="currentTime">{{currentTime}}</p>
+                    </div>
+                </div>
+            </form>
+            <div *ngIf="loading">
+                <img
+                    src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+            <div class="presenceData" *ngIf="!loading">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="title">Previous check-in/outs</h2>
+                        <div class="presenceList">
+                            <div class="singlePresence">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p>Current Day</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>Check-in</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>Check-out</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="singlePresence" *ngFor="let attendance of attendanceList">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p>{{attendance.currentDay}}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>{{attendance.checkIn}}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>{{attendance.checkOut}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+</div>

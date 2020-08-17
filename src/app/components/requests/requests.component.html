@@ -1,0 +1,154 @@
+<div class="page-wrapper chiller-theme toggled">
+    <div id="show-sidebar" class="btn btn-sm btn-dark">
+        <i class="fas fa-bars"></i>
+    </div>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <h2 class="dashboard-title">Dashboard</h2>
+                <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="sidebar-header">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded"
+                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        alt="User picture">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">Rick
+                        <strong>Spanjers</strong>
+                    </span>
+                    <span class="user-role">{{role}}</span>
+                    <span class="user-status">
+                        <i class="fa fa-circle"></i>
+                        <span>Online</span>
+                    </span>
+                </div>
+            </div>
+            <!-- sidebar-header  -->
+            <div class="sidebar-search">
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control search-menu" placeholder="Search...">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- sidebar-search  -->
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+                    <app-navigation></app-navigation>
+                </ul>
+            </div>
+            <!-- sidebar-menu  -->
+        </div>
+        <!-- sidebar-content  -->
+        <div class="sidebar-footer">
+            <div>
+                <i class="fa fa-bell"></i>
+                <span class="badge badge-pill badge-warning notification">1</span>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <span class="badge badge-pill badge-success notification"></span>
+            </div>
+            <div>
+                <i class="fa fa-cog"></i>
+                <span class="badge-sonar"></span>
+            </div>
+            <div>
+                <app-logout></app-logout>
+            </div>
+        </div>
+    </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>Absence Requests</h2>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="resultMsg" class="resultMsg">
+                        {{resultMsg}}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-label>Day</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-label>Month</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-label>Year</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <button routerLink="/create-absence" routerLinkActive="active" class="resultMsg">Create new request</button>
+                </div>
+            </div>
+            <div class="absenceRequests">
+                <div class="requestList">
+                    <div *ngIf="noOpenRequests">
+                        {{noOpenRequests}}
+                    </div> 
+                    <div class="singleRequest" *ngFor="let absence of absenceList">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p>{{absence.startDate}}</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>{{absence.endDate}}</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>{{absence.type}}</p>
+                            </div>
+                            <div class="col-md-3">
+                                    <select (change)="updateAbsenceStatus(absence.id, $event.target.value)" [(value)]="absence.status">
+                                        <option>None</option>
+                                        <option value="INPROCESS">INPROCESS</option>
+                                        <option value="APPROVED">APPROVED</option>
+                                        <option value="DENIED">DENIED</option>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+</div>

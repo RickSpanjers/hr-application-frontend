@@ -1,0 +1,473 @@
+<div class="page-wrapper chiller-theme toggled">
+    <div id="show-sidebar" class="btn btn-sm btn-dark">
+        <i class="fas fa-bars"></i>
+    </div>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <h2 class="dashboard-title">Dashboard</h2>
+                <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="sidebar-header">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded"
+                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        alt="User picture">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">Rick
+                        <strong>Spanjers</strong>
+                    </span>
+                    <span class="user-role">{{role}}</span>
+                    <span class="user-status">
+                        <i class="fa fa-circle"></i>
+                        <span>Online</span>
+                    </span>
+                </div>
+            </div>
+            <!-- sidebar-header  -->
+            <div class="sidebar-search">
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control search-menu" placeholder="Search...">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- sidebar-search  -->
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+                    <app-navigation></app-navigation>
+                </ul>
+            </div>
+            <!-- sidebar-menu  -->
+        </div>
+        <!-- sidebar-content  -->
+        <div class="sidebar-footer">
+            <div>
+                <i class="fa fa-bell"></i>
+                <span class="badge badge-pill badge-warning notification">1</span>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <span class="badge badge-pill badge-success notification"></span>
+            </div>
+            <div>
+                <i class="fa fa-cog"></i>
+                <span class="badge-sonar"></span>
+            </div>
+            <div>
+                <app-logout></app-logout>
+            </div>
+        </div>
+    </nav>
+    <!-- sidebar-wrapper  -->
+
+    <main class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1>Profile</h1>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="resultMsg" class="resultMsg">
+                        {{resultMsg}}
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="true">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="password-tab" data-toggle="tab" href="#password" role="tab"
+                                aria-controls="password" aria-selected="false">Change Password</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="gdpr-tab" data-toggle="tab" href="#gdpr" role="tab"
+                                aria-controls="gdpr" aria-selected="false">Privacy and GDPR</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="account-tab" data-toggle="tab" href="#account" role="tab"
+                                aria-controls="account" aria-selected="false">Account</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="work-tab">
+                            <div class="workexperience">
+
+                                <form class="" (ngSubmit)="updateProfile()" #f="ngForm" novalidate>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input id="firstname" class="form-control" type="text" name="firstname"
+                                                    [(ngModel)]="formContent.firstname" ngDefaultControl
+                                                    #firstname="ngModel" placeholder="Firstname:" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input id="lastname" class="form-control" type="text" name="lastname"
+                                                    [(ngModel)]="formContent.lastname" ngDefaultControl
+                                                    #lastname="ngModel" placeholder="Lastname:" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input id="subject" class="form-control" type="text" name="telephone"
+                                                    [(ngModel)]="formContent.telephone" ngDefaultControl
+                                                    #telephone="ngModel" placeholder="Telephone:" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input id="subject" class="form-control" type="text" name="mail"
+                                                    [(ngModel)]="formContent.mail" ngDefaultControl #mail="ngModel"
+                                                    placeholder="E-mail:" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input id="country" class="form-control" type="text" name="country"
+                                                    [(ngModel)]="formContent.country" ngDefaultControl
+                                                    #country="ngModel" placeholder="Country:" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input id="zipcode" class="form-control" type="text" name="zipcode"
+                                                    [(ngModel)]="formContent.zipcode" ngDefaultControl
+                                                    #zipcode="ngModel" placeholder="Zipcode:" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="submit-btn btnSend" type="submit" title="Versturen van update">Update
+                                        profile</button>
+                                </form>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                            <div class="workexperience">
+                                <form class="" (ngSubmit)="changePassword()" #f="ngForm" novalidate>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input id="oldpass" class="form-control" type="password" name="oldpass"
+                                                    [(ngModel)]="formContent.oldPassword" ngDefaultControl
+                                                    #oldpass="ngModel" placeholder="Old password:" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input id="newpass" class="form-control" type="password" name="newpass"
+                                                    [(ngModel)]="formContent.newPassword" ngDefaultControl
+                                                    #newpass="ngModel" placeholder="New password:" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input id="newpassconfirm" class="form-control" type="password"
+                                                    name="newpassconfirm" [(ngModel)]="formContent.newPasswordConfirm"
+                                                    ngDefaultControl #newpassconfirm="ngModel"
+                                                    placeholder="New password confirmation:" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="submit-btn btnSend" type="submit" title="Versturen van update">
+                                        Change password</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="gdpr" role="tabpanel" aria-labelledby="gdpr-tab">
+                            <div class="workexperience">
+                                <p>
+                                    <mat-checkbox [formControl]="gdprSelect" [checked]="gdprSelect">I consent to the usage of my personal data by the HR Management Enterprise Software</mat-checkbox>
+                                  </p>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="accoount-tab">
+                            <div class="workexperience">
+                                <form class="" (ngSubmit)="changePassword()" #f="ngForm" novalidate>   
+                                    <p>If you wish to delete your account from HR Management you can press the button below</p>
+                                    <button class="submit-btn danger btnSend" type="submit" title="Delete account">
+                                        Delete account</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="customizeProfile">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="work-tab" data-toggle="tab" href="#work" role="tab"
+                                    aria-controls="work" aria-selected="true">Work Experience</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="education-tab" data-toggle="tab" href="#education" role="tab"
+                                    aria-controls="education" aria-selected="false">Education</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="skills-tab" data-toggle="tab" href="#skills" role="tab"
+                                    aria-controls="skills" aria-selected="false">Skills</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="languages-tab" data-toggle="tab" href="#languages" role="tab"
+                                    aria-controls="languages" aria-selected="false">Languages</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="work" role="tabpanel" aria-labelledby="work-tab">
+                                <div class="workexperience">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form class="" (ngSubmit)="addProfileElement('EXPERIENCE')" #f="ngForm" novalidate>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <input id="wename" class="form-control" type="text"
+                                                                name="wename" [(ngModel)]="formContent.wename"
+                                                                ngDefaultControl #wename="ngModel" placeholder="Name:"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <textarea id="wedesc" class="form-control" type="text"
+                                                                name="wedesc" [(ngModel)]="formContent.wedesc"
+                                                                ngDefaultControl #wename="ngModel"
+                                                                placeholder="Description:" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="submit-btn btnSend" type="submit"
+                                                    title="Add work experience">Add</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div *ngFor="let experience of experienceList;let index = index;">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        {{experience.name}}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{experience.description}}
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <form class="" (ngSubmit)="removeProfileElement('EXPERIENCE',experience.id)"
+                                                            #f="ngForm" novalidate>
+                                                            <button class="submit-btn btnSend" type="submit"
+                                                                title="Delete work experience">Remove</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
+                                <div class="workexperience">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form class="" (ngSubmit)="addProfileElement('EDUCATION')" #f="ngForm" novalidate>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <input id="eduname" class="form-control" type="text"
+                                                                name="eduname" [(ngModel)]="formContent.eduname"
+                                                                ngDefaultControl #eduname="ngModel" placeholder="Name:"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <input id="educertificate" class="form-control" type="text"
+                                                                name="educertificate"
+                                                                [(ngModel)]="formContent.educertificate"
+                                                                ngDefaultControl #eduname="ngModel"
+                                                                placeholder="Certificate:" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <textarea id="edudesc" class="form-control" type="text"
+                                                                name="edudesc" [(ngModel)]="formContent.edudesc"
+                                                                ngDefaultControl #wename="ngModel"
+                                                                placeholder="Description:" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <button class="submit-btn btnSend" type="submit"
+                                                    title="Add education">Add</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div *ngFor="let education of educationList;let index = index;">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        {{education.name}}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{education.description}}
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <form class="" (ngSubmit)="removeProfileElement('EDUCATION',education.id)"
+                                                            #f="ngForm" novalidate>
+                                                            <button class="submit-btn btnSend" type="submit"
+                                                                title="Delete work experience">Remove</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="skills" role="tabpanel" aria-labelledby="skills-tab">
+                                <div class="workexperience">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form class="" (ngSubmit)="addProfileElement('SKILL')" #f="ngForm" novalidate>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <input id="skillname" class="form-control" type="text"
+                                                                name="skillname" [(ngModel)]="formContent.skillname"
+                                                                ngDefaultControl #skillname="ngModel" placeholder="Name:"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <textarea id="skilldesc" class="form-control" type="text"
+                                                                name="skilldesc" [(ngModel)]="formContent.skilldesc"
+                                                                ngDefaultControl #skilldesc="ngModel"
+                                                                placeholder="Description:" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="submit-btn btnSend" type="submit"
+                                                    title="Add Skill">Add</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div *ngFor="let skill of skillList;let index = index;">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        {{skill.name}}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{skill.description}}
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <form class="" (ngSubmit)="removeProfileElement('SKILL',skill.id)" #f="ngForm"
+                                                            novalidate>
+                                                            <button class="submit-btn btnSend" type="submit"
+                                                                title="Delete skill">Remove</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="languages" role="tabpanel" aria-labelledby="languages-tab">
+                                <div class="workexperience">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form class="" (ngSubmit)="addProfileElement('LANGUAGE')" #f="ngForm" novalidate>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <input id="langname" class="form-control" type="text"
+                                                                name="langname" [(ngModel)]="formContent.langname"
+                                                                ngDefaultControl #eduname="ngModel" placeholder="Name:"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <textarea id="edudesc" class="form-control" type="text"
+                                                                name="edudesc" [(ngModel)]="formContent.langdesc"
+                                                                ngDefaultControl #wename="ngModel"
+                                                                placeholder="Description:" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <button class="submit-btn btnSend" type="submit"
+                                                    title="Add Language">Add</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div *ngFor="let language of languageList;let index = index;">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        {{language.name}}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{language.description}}
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <form class="" (ngSubmit)="removeProfileElement('LANGUAGE',language.id)"
+                                                            #f="ngForm" novalidate>
+                                                            <button class="submit-btn btnSend" type="submit"
+                                                                title="Delete language">Remove</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

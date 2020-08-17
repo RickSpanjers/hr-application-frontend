@@ -1,0 +1,171 @@
+<div class="page-wrapper chiller-theme toggled">
+    <div id="show-sidebar" class="btn btn-sm btn-dark">
+        <i class="fas fa-bars"></i>
+    </div>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <h2 class="dashboard-title">Dashboard</h2>
+                <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="sidebar-header">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded"
+                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        alt="User picture">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">Rick
+                        <strong>Spanjers</strong>
+                    </span>
+                    <span class="user-role">{{role}}</span>
+                    <span class="user-status">
+                        <i class="fa fa-circle"></i>
+                        <span>Online</span>
+                    </span>
+                </div>
+            </div>
+            <!-- sidebar-header  -->
+            <div class="sidebar-search">
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control search-menu" placeholder="Search...">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- sidebar-search  -->
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+                    <app-navigation></app-navigation>
+                </ul>
+            </div>
+            <!-- sidebar-menu  -->
+        </div>
+        <!-- sidebar-content  -->
+        <div class="sidebar-footer">
+            <div>
+                <i class="fa fa-bell"></i>
+                <span class="badge badge-pill badge-warning notification">1</span>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <span class="badge badge-pill badge-success notification"></span>
+            </div>
+            <div>
+                <i class="fa fa-cog"></i>
+                <span class="badge-sonar"></span>
+            </div>
+            <div>
+                <i class="fa fa-power-off"></i>
+            </div>
+        </div>
+    </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>Companies</h2>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="resultMsg" class="resultMsg">
+                        {{resultMsg}}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="addAccountBtn" routerLink="/add-company" routerLinkActive="active">Add new
+                        company</button>
+                </div>
+            </div>
+
+            <div class="userList">
+                <div class="singleUser" *ngFor="let company of companyList">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>{{company.registrationNumber}}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p>{{company.name}} </p>
+                        </div>
+                        <div class="col-md-2">
+                            <p>{{company.taxId}}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p>{{company.country}}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <form class="" (ngSubmit)="updateCompany(company.uuid)" #f="ngForm" novalidate>
+                                <button class="submit-btn btnSend" type="submit">Update</button>
+                            </form>
+                        </div>
+                        <div class="col-md-2">
+                            <form class="" (ngSubmit)="archiveOrUnarchiveCompany(company.uuid)" #f="ngForm"
+                                novalidate>
+                                <button class="submit-btn btnSend" type="submit">Archive</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="title">Archived</h2>
+                    <div *ngIf="!archivedCompanies">
+                        <p (click)="retrieveArchivedCompanies()">Press here if you want to retrieve the archived
+                            companies</p>
+                    </div>
+                    <div *ngIf="archivedCompanies">
+                        <div class="companyList">
+                            <div class="singleUser" *ngFor="let archivedCompany of archivedCompanyList">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p>{{archivedCompany.registrationNumber}}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p>{{archivedCompany.name}} </p>
+                                    </div>                                 
+                                    <div class="col-md-2">
+                                        <p>{{archivedCompany.taxId}}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p>{{archivedCompany.country}}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <form class="" (ngSubmit)="updateCompany(archivedCompany.uuid)" #f="ngForm"
+                                            novalidate>
+                                            <button class="submit-btn btnSend" type="submit">Update</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <form class=""
+                                            (ngSubmit)="archiveOrUnarchiveCompany(archivedCompany.uuid)"
+                                            #f="ngForm" novalidate>
+                                            <button class="submit-btn btnSend" type="submit">Unarchive</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </main>
+</div>

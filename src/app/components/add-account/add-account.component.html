@@ -1,0 +1,197 @@
+<div class="page-wrapper chiller-theme toggled">
+    <div id="show-sidebar" class="btn btn-sm btn-dark">
+        <i class="fas fa-bars"></i>
+    </div>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <h2 class="dashboard-title">Dashboard</h2>
+                <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="sidebar-header">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded"
+                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        alt="User picture">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">Rick
+                        <strong>Spanjers</strong>
+                    </span>
+                    <span class="user-role">{{role}}</span>
+                    <span class="user-status">
+                        <i class="fa fa-circle"></i>
+                        <span>Online</span>
+                    </span>
+                </div>
+            </div>
+            <!-- sidebar-header  -->
+            <div class="sidebar-search">
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control search-menu" placeholder="Search...">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- sidebar-search  -->
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+                    <app-navigation></app-navigation>
+                </ul>
+            </div>
+            <!-- sidebar-menu  -->
+        </div>
+        <!-- sidebar-content  -->
+        <div class="sidebar-footer">
+            <div>
+                <i class="fa fa-bell"></i>
+                <span class="badge badge-pill badge-warning notification">1</span>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <span class="badge badge-pill badge-success notification"></span>
+            </div>
+            <div>
+                <i class="fa fa-cog"></i>
+                <span class="badge-sonar"></span>
+            </div>
+            <div>
+                <app-logout></app-logout>
+            </div>
+        </div>
+    </nav>
+    <!-- sidebar-wrapper  -->
+
+    <main class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>New employee</h2>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="resultMsg" class="resultMsg">
+                        {{resultMsg}}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="" (ngSubmit)="addAccount()" #f="ngForm" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="firstname" class="form-control" type="text" name="firstname"
+                                        [(ngModel)]="formContent.firstname" ngDefaultControl #firstname="ngModel"
+                                        placeholder="Firstname:" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="lastname" class="form-control" type="text" name="lastname"
+                                        [(ngModel)]="formContent.lastname" ngDefaultControl #lastname="ngModel"
+                                        placeholder="Lastname:" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="subject" class="form-control" type="text" name="telephone"
+                                        [(ngModel)]="formContent.telephone" ngDefaultControl #telephone="ngModel"
+                                        placeholder="Telephone:" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="subject" class="form-control" type="text" name="mail"
+                                        [(ngModel)]="formContent.mail" ngDefaultControl #mail="ngModel"
+                                        placeholder="E-mail:" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="address" class="form-control" type="text" name="address"
+                                        [(ngModel)]="formContent.address" ngDefaultControl #address="ngModel"
+                                        placeholder="Address:" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="place" class="form-control" type="text" name="place"
+                                        [(ngModel)]="formContent.place" ngDefaultControl #place="ngModel"
+                                        placeholder="Place:" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="country" class="form-control" type="text" name="country"
+                                        [(ngModel)]="formContent.country" ngDefaultControl #country="ngModel"
+                                        placeholder="Country:" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="zipcode" class="form-control" type="text" name="zipcode"
+                                        [(ngModel)]="formContent.zipcode" ngDefaultControl #zipcode="ngModel"
+                                        placeholder="Zipcode:" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="form-control" name="company" [(ngModel)]="formContent.selectedCompany" (click)="retrieveCompanyFunctions()" #company="ngModel"
+                                        required>
+                                        <option *ngFor="let c of companyList" [ngValue]="c.uuid">{{c.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="form-control" name="function" [(ngModel)]="formContent.selectedFunction" #function="ngModel"
+                                        required>
+                                        <option *ngFor="let f of companyFunctions" [ngValue]="f.uuid">{{f.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="password" class="form-control" type="password" name="password"
+                                        [(ngModel)]="formContent.password" ngDefaultControl #password="ngModel"
+                                        placeholder="Password:" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="passwordConfirm" class="form-control" type="password"
+                                        name="passwordConfirm" [(ngModel)]="formContent.passwordConfirm"
+                                        ngDefaultControl #passwordConfirm="ngModel" placeholder="Password confirmation:"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="submit-btn btnSend" type="submit" title="Versturen van update">Add
+                            account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
